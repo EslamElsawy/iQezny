@@ -33,9 +33,9 @@ public class MyApplication extends Application {
 
 		// Testing parse
 		ParseUser user = new ParseUser();
-		user.setUsername("my name");
-		user.setPassword("my pass");
-		user.setEmail("eslam33@example.com");
+		user.setUsername("my name5");
+		user.setPassword("my pass5");
+		user.setEmail("eslam55@example.com");
 
 		// other fields can be set just like with ParseObject
 		user.put("phone", "650-555-0000");
@@ -44,9 +44,11 @@ public class MyApplication extends Application {
 			public void done(ParseException e) {
 				if (e == null) {
 					// Hooray! Let them use the app now.
+					System.out.println("Done signing up");
 				} else {
 					// Sign up didn't succeed. Look at the ParseException
 					// to figure out what went wrong
+					System.err.println("can't sign up");
 				}
 			}
 		});
