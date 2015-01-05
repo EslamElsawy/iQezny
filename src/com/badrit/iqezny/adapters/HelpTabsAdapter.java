@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import com.badrit.iqezny.fragments.HelpAwakeFragment;
 import com.badrit.iqezny.fragments.HelpSleepingFragment;
+import com.badrit.iqezny.fragments.SettingsFragment;
+import com.badrit.iqezny.fragments.StatisticsFragment;
 
 public class HelpTabsAdapter extends FragmentPagerAdapter {
 
@@ -28,6 +30,10 @@ public class HelpTabsAdapter extends FragmentPagerAdapter {
 			return new HelpSleepingFragment(context);
 		case 1:
 			return new HelpAwakeFragment(context);
+		case 2:
+			return new StatisticsFragment();
+		case 3:
+			return new SettingsFragment();
 		}
 
 		return null;
@@ -35,7 +41,7 @@ public class HelpTabsAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public int getCount() {
-		return 2;
+		return 4;
 	}
 
 	@Override

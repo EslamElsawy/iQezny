@@ -45,9 +45,6 @@
             android:name="com.badrit.iqezny.activities.HelpActivity"
             android:theme="@style/Theme.AppCompat" />
         <activity
-            android:name="com.badrit.iqezny.activities.StatisticsActivity"
-            android:theme="@style/Theme.AppCompat" />
-        <activity
             android:name="com.badrit.iqezny.activities.AudioRecord"
             android:label="@string/title_activity_audio_record" >
         </activity>
@@ -72,10 +69,6 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
-        </activity>
-        <activity
-            android:name="com.badrit.iqezny.activities.SettingsActivity"
-            android:label="Settings" >
         </activity>
 
         <meta-data

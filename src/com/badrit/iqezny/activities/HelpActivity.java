@@ -1,7 +1,5 @@
 package com.badrit.iqezny.activities;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.json.JSONException;
@@ -14,9 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -24,11 +20,7 @@ import android.widget.Toast;
 import com.badrit.iqezny.R;
 import com.badrit.iqezny.DB.FriendsDataSource;
 import com.badrit.iqezny.adapters.HelpTabsAdapter;
-import com.badrit.iqezny.fragments.HelpAwakeFragment;
-import com.badrit.iqezny.fragments.HelpSleepingFragment;
-import com.badrit.iqezny.models.BaseListElement;
 import com.badrit.iqezny.models.Friend;
-import com.badrit.iqezny.models.PeopleListElement;
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
@@ -42,7 +34,7 @@ public class HelpActivity extends ActionBarActivity implements ActionBar.TabList
 	private HelpTabsAdapter mAdapter;
 
 	// Tab titles
-	private String[] tabs = { "Sleeping", "Awake" };
+	private String[] tabs = { "Sleeping", "Awake", "Statistics", "Settings" };
 
 	@Override
 	protected void onResume() {
@@ -117,35 +109,35 @@ public class HelpActivity extends ActionBarActivity implements ActionBar.TabList
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.layout.main_activity_actions, menu);
+//		MenuInflater inflater = getMenuInflater();
+//		inflater.inflate(R.layout.main_activity_actions, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-
-		if (id == R.id.Help) {
-			Toast toast = Toast.makeText(getApplicationContext(), "This is the current Tab", Toast.LENGTH_LONG);
-			toast.show();
-			return true;
-
-		} else if (id == R.id.Statistics) {
-			Intent intent = new Intent(this, StatisticsActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-			startActivity(intent);
-			overridePendingTransition(0, 0);
-			return true;
-		} else if (id == R.id.Settings) {
-			Intent intent = new Intent(this, SettingsActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-			startActivity(intent);
-			overridePendingTransition(0, 0);
-			return true;
-		}
+//		int id = item.getItemId();
+//
+//		if (id == R.id.Help) {
+//			Toast toast = Toast.makeText(getApplicationContext(), "This is the current Tab", Toast.LENGTH_LONG);
+//			toast.show();
+//			return true;
+//
+//		} else if (id == R.id.Statistics) {
+//			Intent intent = new Intent(this, StatisticsActivity.class);
+//			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//			startActivity(intent);
+//			overridePendingTransition(0, 0);
+//			return true;
+//		} else if (id == R.id.Settings) {
+//			Intent intent = new Intent(this, SettingsActivity.class);
+//			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//			startActivity(intent);
+//			overridePendingTransition(0, 0);
+//			return true;
+//		}
 		return super.onOptionsItemSelected(item);
 	}
 

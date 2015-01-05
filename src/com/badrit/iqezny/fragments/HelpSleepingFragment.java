@@ -33,7 +33,6 @@ public class HelpSleepingFragment extends Fragment {
 
 	public HelpSleepingFragment(Context context) {
 		super();
-		sleepingFriends = getFriends(true);
 		instance = this;
 		this.context = context;
 	}
@@ -41,6 +40,10 @@ public class HelpSleepingFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+		// Date
+		sleepingFriends = getFriends(true);
+
+		// View
 		View rootView = inflater.inflate(R.layout.fragment_help_sleeping, container, false);
 		GridView gridview = (GridView) rootView.findViewById(R.id.gridviewhelpsleeping);
 		imageAdapter = new ImageAdapter(context, sleepingFriends);

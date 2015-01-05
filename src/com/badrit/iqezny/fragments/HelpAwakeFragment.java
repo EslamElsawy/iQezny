@@ -33,16 +33,18 @@ public class HelpAwakeFragment extends Fragment {
 
 	public HelpAwakeFragment(Context context) {
 		super();
-		awakeFriends = getFriends(false);
 		instance = this;
 		this.context = context;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+		
+		//Data
+		awakeFriends = getFriends(false);
+		
+		//View
 		View rootView = inflater.inflate(R.layout.fragment_help_awake, container, false);
-
 		GridView gridview = (GridView) rootView.findViewById(R.id.gridviewhelpawake);
 		imageAdapter = new ImageAdapter(context, awakeFriends);
 		gridview.setAdapter(imageAdapter);

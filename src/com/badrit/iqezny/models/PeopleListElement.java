@@ -48,13 +48,17 @@ public class PeopleListElement extends BaseListElement {
 				Log.d(PeopleListElement, ((String) view.getTag(R.string.toUser)) + "");
 
 				// Save notifiction to Parse
-//				ParseObject notification = new ParseObject("Notification");
-//				notification.put("fromId", ((String) view.getTag(R.string.fromId)) + "");
-//				notification.put("toId", (String) view.getTag(R.string.toId));
-//				notification.put("fromUser", ((String) view.getTag(R.string.fromUser)) + "");
-//				notification.put("toUser", (String) view.getTag(R.string.toUser));
-//				notification.put("type", "alarm");
-//				notification.saveInBackground();
+				// ParseObject notification = new ParseObject("Notification");
+				// notification.put("fromId", ((String)
+				// view.getTag(R.string.fromId)) + "");
+				// notification.put("toId", (String)
+				// view.getTag(R.string.toId));
+				// notification.put("fromUser", ((String)
+				// view.getTag(R.string.fromUser)) + "");
+				// notification.put("toUser", (String)
+				// view.getTag(R.string.toUser));
+				// notification.put("type", "alarm");
+				// notification.saveInBackground();
 
 				// Json Object
 				JSONObject data = null;
@@ -78,6 +82,8 @@ public class PeopleListElement extends BaseListElement {
 				push.sendInBackground();
 
 				// testing message
+				Log.d("mytag", mContext.toString());
+				Log.d("mytag", (String) view.getTag(R.string.toUser));
 				Toast toast = Toast.makeText(mContext, "Sending Alarm to " + (String) view.getTag(R.string.toUser),
 						Toast.LENGTH_LONG);
 				toast.show();

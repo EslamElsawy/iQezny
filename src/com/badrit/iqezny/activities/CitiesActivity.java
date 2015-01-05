@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ public class CitiesActivity extends ListActivity implements OnQueryTextListener,
 	private ListView listView;
 	private SearchView searchView;
 	private LocationListAdapter myListAdapter;
+	private SharedPreferences settings;
 
 	private static String COUNTRY_NAME;
 
@@ -37,6 +39,9 @@ public class CitiesActivity extends ListActivity implements OnQueryTextListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cities);
+
+		// Prefernces
+		settings = getSharedPreferences("pref", MODE_PRIVATE);
 
 		// Open DB connection
 		citiesDataSource = new CitiesDataSource(this);
@@ -48,10 +53,10 @@ public class CitiesActivity extends ListActivity implements OnQueryTextListener,
 		COUNTRY_NAME = countryName;
 
 		List<City> cities = citiesDataSource.finaAll(countryName);
-//		if (cities.size() == 0) {
-//			citiesDataSource.loadCitiesIntoSQLite();
-//			cities = citiesDataSource.finaAll(countryName);
-//		}
+		// if (cities.size() == 0) {
+		// citiesDataSource.loadCitiesIntoSQLite();
+		// cities = citiesDataSource.finaAll(countryName);
+		// }
 
 		RefreshListViewWithData(cities);
 
@@ -111,10 +116,16 @@ public class CitiesActivity extends ListActivity implements OnQueryTextListener,
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView parent, View view, int position, long id) {
-				Intent intent = new Intent(CitiesActivity.this, SettingsActivity.class);
-				intent.putExtra("data", cities.get(position).getDetails());
-				startActivity(intent);
 
+				// Save the information into preferences
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putString("locationInfo", cities.get(position).getDetails());
+				editor.commit();
+
+				// Start the HelpActivity
+				Intent intent = new Intent(CitiesActivity.this, HelpActivity.class);
+				// intent.putExtra("data", cities.get(position).getDetails());
+				startActivity(intent);
 			}
 		});
 	}
