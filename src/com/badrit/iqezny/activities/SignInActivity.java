@@ -1,29 +1,18 @@
 package com.badrit.iqezny.activities;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.Signature;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 
 import com.badrit.iqezny.R;
 import com.badrit.iqezny.DB.FriendsDataSource;
-import com.badrit.iqezny.fragments.HelpSleepingFragment;
-import com.badrit.iqezny.models.BaseListElement;
 import com.badrit.iqezny.models.Friend;
-import com.badrit.iqezny.models.PeopleListElement;
 import com.facebook.AppEventsLogger;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -34,49 +23,71 @@ import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.PushService;
 import com.parse.SaveCallback;
 
 public class SignInActivity extends Activity {
 
 	private static final String Sign_In_Activity = "SignInActivity";
 	FriendsDataSource friendsDataSource;
+	SharedPreferences settings;
+
+	private enum NextActivity {
+		CountriesActivity, HelpActivity
+	};
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_sign_in);
 
 		// ParseAnalytics
 		ParseAnalytics.trackAppOpenedInBackground(getIntent());
+
+		// Check if previously logged In
+		settings = getSharedPreferences("pref", MODE_PRIVATE);
+		boolean previouslyLoggedIn = settings.getBoolean("loggedIn", false);
+		if (previouslyLoggedIn) {
+			setContentView(R.layout.activity_landingpage);
+			Log.d(Sign_In_Activity, "User Previously Logged In");
+			logIn(NextActivity.HelpActivity);
+		} else {
+			setContentView(R.layout.activity_sign_in);
+		}
 	}
 
 	public void onLogInButtonClicked(View v) {
+		logIn(NextActivity.CountriesActivity);
+	}
 
+	private void logIn(final NextActivity nextActivity) {
 		List<String> permissions = Arrays.asList("email", "public_profile", "user_friends");
-
 		ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
 			@Override
 			public void done(ParseUser user, ParseException err) {
 				if (user == null) {
 					Log.d(Sign_In_Activity, err.getMessage());
 					Log.d(Sign_In_Activity, "The user cancelled the Facebook login.");
-				} else if (user.isNew()) {
-					Log.d(Sign_In_Activity, "New User Logged In: " + user.getUsername());
-					makeMeRequest();
-					makeFriendsRequest();
 				} else {
-					Log.d(Sign_In_Activity, "Old User Logged In: " + user.getUsername());
-					makeMeRequest();
-					makeFriendsRequest();
+					// Save the information into preferences
+					SharedPreferences.Editor editor = settings.edit();
+					editor.putBoolean("loggedIn", true);
+					editor.commit();
+
+					if (user.isNew()) {
+						Log.d(Sign_In_Activity, "New User Logged In: " + user.getUsername());
+						makeMeRequest();
+						makeFriendsRequest(nextActivity);
+					} else {
+						Log.d(Sign_In_Activity, "Old User Logged In: " + user.getUsername());
+						makeMeRequest();
+						makeFriendsRequest(nextActivity);
+					}
 				}
 
 			}
 		});
 	}
 
-	private void makeFriendsRequest() {
+	private void makeFriendsRequest(final NextActivity nextActivity) {
 
 		// Open DB connection
 		friendsDataSource = new FriendsDataSource(this);
@@ -108,9 +119,11 @@ public class SignInActivity extends Activity {
 							friendsDataSource.create(friend);
 						}
 
-						// start the Help Activity
-//						startHelpActivity();
-						startCountriesActivity();
+						// start the next Activity
+						if (nextActivity.equals(NextActivity.HelpActivity))
+							startHelpActivity();
+						else if (nextActivity.equals(NextActivity.CountriesActivity))
+							startCountriesActivity();
 					}
 				});
 
@@ -206,11 +219,13 @@ public class SignInActivity extends Activity {
 
 	private void startHelpActivity() {
 		Intent intent = new Intent(this, HelpActivity.class);
+		finish();
 		startActivity(intent);
 	}
-	
-	private void startCountriesActivity(){
+
+	private void startCountriesActivity() {
 		Intent intent = new Intent(this, CountriesActivity.class);
+		finish();
 		startActivity(intent);
 	}
 

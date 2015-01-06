@@ -105,6 +105,7 @@ public class CountriesActivity extends ListActivity implements OnQueryTextListen
 			public void onItemClick(AdapterView parent, View view, int position, long id) {
 				Intent intent = new Intent(CountriesActivity.this, CitiesActivity.class);
 				intent.putExtra("data", countries.get(position).countryName);
+				finish();
 				startActivity(intent);
 
 			}

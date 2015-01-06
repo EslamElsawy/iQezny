@@ -40,7 +40,7 @@ public class CitiesActivity extends ListActivity implements OnQueryTextListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cities);
 
-		// Prefernces
+		// Preferences
 		settings = getSharedPreferences("pref", MODE_PRIVATE);
 
 		// Open DB connection
@@ -124,8 +124,9 @@ public class CitiesActivity extends ListActivity implements OnQueryTextListener,
 
 				// Start the HelpActivity
 				Intent intent = new Intent(CitiesActivity.this, HelpActivity.class);
-				// intent.putExtra("data", cities.get(position).getDetails());
+				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(intent);
+				finish();
 			}
 		});
 	}

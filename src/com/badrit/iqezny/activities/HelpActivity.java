@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +53,8 @@ public class HelpActivity extends ActionBarActivity implements ActionBar.TabList
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_help);
+
+		Log.d("mytag", "Help Activity Created");
 
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.helppager);
@@ -109,35 +112,36 @@ public class HelpActivity extends ActionBarActivity implements ActionBar.TabList
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
-//		MenuInflater inflater = getMenuInflater();
-//		inflater.inflate(R.layout.main_activity_actions, menu);
+		// MenuInflater inflater = getMenuInflater();
+		// inflater.inflate(R.layout.main_activity_actions, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-//		int id = item.getItemId();
-//
-//		if (id == R.id.Help) {
-//			Toast toast = Toast.makeText(getApplicationContext(), "This is the current Tab", Toast.LENGTH_LONG);
-//			toast.show();
-//			return true;
-//
-//		} else if (id == R.id.Statistics) {
-//			Intent intent = new Intent(this, StatisticsActivity.class);
-//			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-//			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//			startActivity(intent);
-//			overridePendingTransition(0, 0);
-//			return true;
-//		} else if (id == R.id.Settings) {
-//			Intent intent = new Intent(this, SettingsActivity.class);
-//			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-//			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//			startActivity(intent);
-//			overridePendingTransition(0, 0);
-//			return true;
-//		}
+		// int id = item.getItemId();
+		//
+		// if (id == R.id.Help) {
+		// Toast toast = Toast.makeText(getApplicationContext(),
+		// "This is the current Tab", Toast.LENGTH_LONG);
+		// toast.show();
+		// return true;
+		//
+		// } else if (id == R.id.Statistics) {
+		// Intent intent = new Intent(this, StatisticsActivity.class);
+		// intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		// intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		// startActivity(intent);
+		// overridePendingTransition(0, 0);
+		// return true;
+		// } else if (id == R.id.Settings) {
+		// Intent intent = new Intent(this, SettingsActivity.class);
+		// intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		// intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		// startActivity(intent);
+		// overridePendingTransition(0, 0);
+		// return true;
+		// }
 		return super.onOptionsItemSelected(item);
 	}
 
