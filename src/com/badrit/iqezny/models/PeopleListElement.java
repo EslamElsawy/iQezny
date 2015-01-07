@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.util.Log;
@@ -87,6 +88,14 @@ public class PeopleListElement extends BaseListElement {
 				Toast toast = Toast.makeText(mContext, "Sending Alarm to " + (String) view.getTag(R.string.toUser),
 						Toast.LENGTH_LONG);
 				toast.show();
+
+				// Incrementing alarms sent by 1
+				SharedPreferences settings = mContext.getSharedPreferences("pref", Context.MODE_PRIVATE);
+				int alarms = settings.getInt("alarms", 0);
+				SharedPreferences.Editor editor = settings.edit();
+				alarms++;
+				editor.putInt("alarms", alarms);
+				editor.commit();
 			}
 		};
 	}
@@ -153,6 +162,14 @@ public class PeopleListElement extends BaseListElement {
 		mRecorder = null;
 
 		sendVoice(view);
+
+		// Incrementing voices sent by 1
+		SharedPreferences settings = mContext.getSharedPreferences("pref", Context.MODE_PRIVATE);
+		int voices = settings.getInt("voices", 0);
+		SharedPreferences.Editor editor = settings.edit();
+		voices++;
+		editor.putInt("voices", voices);
+		editor.commit();
 	}
 
 	private void sendVoice(final View view) {

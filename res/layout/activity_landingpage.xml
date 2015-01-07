@@ -13,12 +13,4 @@
         android:scaleType="centerCrop"
         android:src="@drawable/background_intro" />
 
-    <ImageView
-        android:id="@+id/imageViewlogo"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="center_vertical"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logo" />
-
 </FrameLayout>

@@ -8,7 +8,9 @@ import org.json.JSONObject;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -205,5 +207,13 @@ public class HelpActivity extends ActionBarActivity implements ActionBar.TabList
 			Toast toast = Toast.makeText(this, "Sending I am awake to " + friend.friendName, Toast.LENGTH_LONG);
 			toast.show();
 		}
+
+		// Increase Awakes by 1
+		SharedPreferences settings = this.getSharedPreferences("pref", Context.MODE_PRIVATE);
+		int awakes = settings.getInt("awakes", 0);
+		SharedPreferences.Editor editor = settings.edit();
+		awakes++;
+		editor.putInt("awakes", awakes);
+		editor.commit();
 	}
 }
