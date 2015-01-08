@@ -38,6 +38,7 @@ public class HelpActivity extends ActionBarActivity implements ActionBar.TabList
 
 	// Tab titles
 	private String[] tabs = { "Sleeping", "Awake", "Statistics", "Settings" };
+	private int[] tabsIcons = { R.drawable.settings, R.drawable.settings, R.drawable.statistics, R.drawable.settings };
 
 	@Override
 	protected void onResume() {
@@ -54,31 +55,40 @@ public class HelpActivity extends ActionBarActivity implements ActionBar.TabList
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// Action bar settings
+		actionBar = getActionBar();
+		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setTitle("Friends Sleeping");
+
+		// Content View
 		setContentView(R.layout.activity_help);
 
 		Log.d("mytag", "Help Activity Created");
 
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.helppager);
-		actionBar = getActionBar();
 		mAdapter = new HelpTabsAdapter(getSupportFragmentManager(), this);
 
 		viewPager.setAdapter(mAdapter);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		// Adding Tabs
-		for (String tab_name : tabs) {
-			actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this));
+		for (int i = 0; i < tabs.length; i++) {
+			actionBar.addTab(actionBar.newTab().setIcon(tabsIcons[i]).setTabListener(this));
 		}
 
 		// on swiping the viewpager make respective tab selected
 		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+			String[] tabsTitles = { "Friends Sleeping", "Friends Awake", "Statistics", "Settings" };
 
 			@Override
 			public void onPageSelected(int position) {
 				// on changing the page
 				// make respected tab selected
 				actionBar.setSelectedNavigationItem(position);
+				actionBar.setTitle(tabsTitles[position]);
 			}
 
 			@Override
@@ -89,10 +99,6 @@ public class HelpActivity extends ActionBarActivity implements ActionBar.TabList
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
-
-		// disable title of the Action bar
-		actionBar.setDisplayShowHomeEnabled(false);
-		actionBar.setDisplayShowTitleEnabled(false);
 	}
 
 	public void onLogoutButtonClicked(View v) {

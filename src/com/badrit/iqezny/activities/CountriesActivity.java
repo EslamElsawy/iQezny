@@ -3,6 +3,7 @@ package com.badrit.iqezny.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,6 +34,12 @@ public class CountriesActivity extends ListActivity implements OnQueryTextListen
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		// Action bar settings
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayShowHomeEnabled(false);
+		
+		// ContentView
 		setContentView(R.layout.activity_countries);
 
 		// Open DB connection

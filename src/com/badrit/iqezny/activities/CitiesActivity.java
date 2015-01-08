@@ -3,6 +3,7 @@ package com.badrit.iqezny.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,7 +16,6 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.TextView;
 
 import com.badrit.iqezny.R;
 import com.badrit.iqezny.DB.CitiesDataSource;
@@ -38,6 +38,12 @@ public class CitiesActivity extends ListActivity implements OnQueryTextListener,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// Action bar settings
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayShowHomeEnabled(false);
+
+		// ContentView
 		setContentView(R.layout.activity_cities);
 
 		// Preferences
